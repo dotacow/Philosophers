@@ -1,5 +1,5 @@
 CC = cc
-#CFLAGS = -Wall -Wextra -Werror -I includes -pthread
+CFLAGS = -Wall -Wextra -Werror -I includes -pthread
 
 SRC = philo.c
 
