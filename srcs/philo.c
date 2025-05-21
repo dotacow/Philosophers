@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:24:33 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/17 21:13:18 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:18:45 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,62 +30,27 @@ what I need to do:
 			the philos will take turns eating.
 		along side all this, runs a monitor thread.
 		 every 5ms, runs a poll:
-			if any philo dies -->	end_dinner.
+			if any philo is dead -->	end_dinner.
 			if eat_goal && all philos are @satiated:	--> end_dinner.
 */
 
-int free_split(void **ptr, int end)
-{
-	int	i;
 
-	i = 0;
-	while (i < end)
-	{
-		free(ptr[i]);
-		i++;
-	}
-	free(ptr);
-	return (0);
-}
 
-int init_philos(t_table *table)//re check this function
-{
-	int	i;
-
-	i = 0;
-	while (i < table->num_philos)
-	{
-		table->seating_list[i] = malloc(sizeof(t_philo));
-		if (!table->seating_list[i])
-			return (free_split((void *)table->seating_list, i));
-		table->seating_list[i]->seat_id = i;
-		if (i % 2)
-			table->seating_list[i]->first_fork = i;
-		else
-			table->seating_list[i]->first_fork = (i + 1) % table->num_philos;
-		if (i % 2)
-			table->seating_list[i]->second_fork = (i + 1) % table->num_philos;
-		else
-			table->seating_list[i]->second_fork = i;
-		table->seating_list[i]->eat_count = 0;
-		table->seating_list[i]->state = hungry;
-		table->seating_list[i]->table = table;
-		table->seating_list[i]->thread_id = 0;
-		i++;
-	}
-	return (1);
-}
 
 int arrange_table(char **argv, t_table *table)
 {
 	if (!init_table(argv, table))
 		return (0);
-	if (init_philos(table))
+	if (!init_philos(table))
 		{
 			free(table->forks);
 			free(table->seating_list);
 			return (0);
 		}
+	if (!init_threads(table))
+	{
+		
+	}
 		return (1);
 }
 

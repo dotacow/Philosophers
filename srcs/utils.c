@@ -6,9 +6,11 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 14:57:12 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/17 20:39:28 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:19:11 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/philo.h"
 
 long int	ft_atoi(const char *nptr)
 {
@@ -52,3 +54,5 @@ int	is_numeric(char **argv)
 	}
 	return (1);
 }
+
+

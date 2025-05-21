@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:25:14 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/17 20:48:15 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/21 17:17:16 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,14 @@ typedef struct s_philo
 	t_table			*table;
 }				t_philo;
 
+
+/* #### UTILS #### */
 long int	ft_atoi(const char *nptr);
 int			is_numeric(char **argv);
+int			free_split(void **ptr, int end);
+/* #### INIT #### */
 int			arrange_table(char **argv, t_table *table);
+int			init_philos(t_table *table);
 int			init_table(char **argv, t_table *table);
 /* #### COLORS #### */
 # define RED		"\033[0;31m"
