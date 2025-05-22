@@ -1,2 +1,4 @@
 TODO:
-	1-better input parsing 
+	1-better input parsing
+	2-better philo routine
+	3-monitor rotuine

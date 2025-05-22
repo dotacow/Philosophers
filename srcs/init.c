@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:37:49 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/21 17:16:28 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:50:34 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int init_philos(t_table *table)
 {
 	int	i;
 
-	i = 0;
-	while (i < table->num_philos)
+	i = -1;
+	while (++i < table->num_philos)
 	{
 		table->seating_list[i] = malloc(sizeof(t_philo));
 		if (!table->seating_list[i])
@@ -64,7 +64,6 @@ int init_philos(t_table *table)
 		table->seating_list[i]->state = hungry;
 		table->seating_list[i]->table = table;
 		table->seating_list[i]->thread_id = 0;
-		i++;
 	}
 	return (1);
 }

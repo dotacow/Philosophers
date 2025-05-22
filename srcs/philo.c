@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:24:33 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/21 17:18:45 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:10:26 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,23 @@ what I need to do:
 
 
 
+int init_threads(t_table *table)
+{
+	int i;
+
+	i = 0;
+	while (i < table->num_philos)
+	{
+		table->seating_list[i]->thread_id = (pthread_t)NULL;
+		if (pthread_create(&table->seating_list[i]->thread_id, NULL,
+				(void *)philo_routine, (void *)table->seating_list[i])
+				!= 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 
 int arrange_table(char **argv, t_table *table)
 {
@@ -48,10 +65,8 @@ int arrange_table(char **argv, t_table *table)
 			return (0);
 		}
 	if (!init_threads(table))
-	{
-		
-	}
-		return (1);
+		return (cleanup(table));
+	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -61,7 +76,7 @@ int	main(int argc, char **argv)
 	if ((argc == 5 || argc == 6) && is_numeric(argv))
 	{
 		if (arrange_table(argv, &table))
-				return (start_dinner());
+				return (wait_dinner(&table));
 		return (-1);
 	}
 	write(2, "usage: ./philo n_philo t_die t_eat t_sleep [n_min_eat_philo]\n",

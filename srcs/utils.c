@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 14:57:12 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/21 17:19:11 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:27:49 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,16 @@ int	is_numeric(char **argv)
 	return (1);
 }
 
+int	get_timestamp_in_ms(void)
+{
+	struct timeval	tv;
 
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
+int	get_time(struct timeval start)
+{
+	return ((int)(get_timestamp_in_ms() - ((start.tv_sec * 1000)// 1197.1
+			+ (start.tv_usec / 1000))));
+}

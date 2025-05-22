@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:25:14 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/21 17:17:16 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:01:54 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef enum e_state
 	thinking,
 	sleeping,
 	satiated,
+	dead,
 }				t_state;
 
 typedef struct s_clock
@@ -66,7 +67,6 @@ typedef struct s_philo
 	t_table			*table;
 }				t_philo;
 
-
 /* #### UTILS #### */
 long int	ft_atoi(const char *nptr);
 int			is_numeric(char **argv);
@@ -75,6 +75,11 @@ int			free_split(void **ptr, int end);
 int			arrange_table(char **argv, t_table *table);
 int			init_philos(t_table *table);
 int			init_table(char **argv, t_table *table);
+/* #### ROUTINE #### */
+int			wait_dinner(t_table *table);
+void		*philo_routine(void *arg);
+/* #### EXIT #### */
+int		cleanup(t_table *table);
 /* #### COLORS #### */
 # define RED		"\033[0;31m"
 # define GREEN		"\033[0;32m"

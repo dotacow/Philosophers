@@ -6,23 +6,25 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 19:22:14 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/21 17:31:55 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:49:49 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/philo.h"
+#include <pthread.h>
 
 
 void philo_cleanup(t_philo *philo)
 {
 	if (philo)
 	{
-		
-		thread_join(philo->thread_id, NULL);
+		if (philo->thread_id)
+			pthread_join(philo->thread_id, NULL);
 		free(philo);
 	}
+	philo = NULL;
 }
-}
+
 
 int free_split(void **ptr, int end)
 {
@@ -43,7 +45,24 @@ int free_split(void **ptr, int end)
 	return (0);
 }
 
-void cleanup(t_table *table)
+int cleanup(t_table *table)
 {
+	int	i;
 
+	if (!table)
+		return (0);
+	i = 0;
+	while (i < table->num_philos)
+	{
+		if (&table->forks[i])
+			pthread_mutex_destroy(&table->forks[i]);
+		if (table->seating_list[i])
+			philo_cleanup(table->seating_list[i++]);
+	}
+	pthread_mutex_destroy(&table->print_lock);
+	free(table->forks);
+	free(table->seating_list);
+	free(table);
+	table = NULL;
+	return (0);
 }
