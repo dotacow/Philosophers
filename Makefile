@@ -1,14 +1,15 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I includes -pthread
+CFLAGS = -Wall -Wextra -Werror -g -I includes -pthread
 
-SRC = philo.c
+SRC = philo.c janitor.c init.c philo_routine.c sync_utils.c utils.c
 
 SRCS :=  $(addprefix srcs/,$(SRC))
-OFILES := $(addprefix ofiles/,$(SRC:.c=.o))
+ODIR = ofiles
+OFILES := $(addprefix ofiles/,$(notdir $(SRC:.c=.o)))
 
 NAME = philo
 
-ofiles/%.o: srcs/%.c includes/philo.h | dirs
+ofiles/%.o: srcs/%.c includes/philo.h | $(ODIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
@@ -24,7 +25,7 @@ fclean: clean
 
 re: fclean all
 
-dirs:
+$(ODIR):
 	mkdir -p ofiles
 
 .PHONY: dirs all clean fclean re

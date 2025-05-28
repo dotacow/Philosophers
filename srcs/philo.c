@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:24:33 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 16:06:34 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:52:20 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,24 +34,6 @@ what I need to do:
 			if eat_goal && all philos are @satiated:	--> end_dinner.
 */
 
-int init_threads(t_table *table)
-{
-	int i;
-
-	i = 0;
-	while (i < table->num_philos)
-	{
-		table->seating_list[i]->thread_id = (pthread_t)NULL;
-		if (pthread_create(&table->seating_list[i]->thread_id, NULL,
-				(void *)philo_routine, (void *)table->seating_list[i])
-				!= 0)
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-
 int arrange_table(char **argv, t_table *table)
 {
 	if (!init_table(argv, table))
@@ -63,9 +45,14 @@ int arrange_table(char **argv, t_table *table)
 			return (0);
 		}
 	gettimeofday(&table->start_t, NULL);
+	table->feast_famine = 1;
 	if (!init_threads(table))
 		return (cleanup(table));
 	return (1);
+}
+
+int wait_dinner(t_table *table)
+{
 }
 
 int	main(int argc, char **argv)

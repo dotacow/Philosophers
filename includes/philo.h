@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:25:14 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 18:10:53 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 20:50:30 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # include <stdatomic.h>
 
 
-typedef struct s_philo	t_philo;
+typedef struct s_philo		t_philo;
+typedef struct s_janitor	t_janitor;
 
 typedef enum e_state
 {
@@ -35,7 +36,6 @@ typedef struct s_clock
 {
 	long	eat_t;
 	long	sleep_t;
-	long	think_t;
 	long	die_t;
 }				t_clock;
 
@@ -44,7 +44,7 @@ typedef struct s_clock
 		1: sim ongoing
 		0: sim ended/not started yet
 	@start_t:
-	 our local epoch
+		our local epoch
 */
 typedef struct s_table
 {
@@ -54,10 +54,12 @@ typedef struct s_table
 	/* ### WAITER ONLY WRITE ### */
 	t_clock			t_clock;
 	struct timeval	start_t;
+	t_philo			**seating_list;
+	t_janitor		*janitor;
 	int				eat_goal;
 	int				num_philos;
 	_Atomic int		feast_famine;
-	t_philo			**seating_list;
+
 }				t_table;
 
 typedef struct s_philo
@@ -72,6 +74,15 @@ typedef struct s_philo
 	t_table			*table;
 }				t_philo;
 
+/**
+	clean up only access.
+*/
+typedef struct s_janitor
+{
+	int				*fork_indc;
+	int				print_lock_indc;
+} t_janitor;
+
 /* #### UTILS #### */
 long int	ft_atoi(const char *nptr);
 int			is_numeric(char **argv);
@@ -84,6 +95,7 @@ long		get_time(struct timeval start);
 int			arrange_table(char **argv, t_table *table);
 int			init_philos(t_table *table);
 int			init_table(char **argv, t_table *table);
+int			init_threads(t_table *table);
 /* #### ROUTINE #### */
 int			wait_dinner(t_table *table);
 void		*philo_routine(void *arg);
@@ -94,6 +106,6 @@ int		cleanup(t_table *table);
 # define GREEN		"\033[0;32m"//taken a fork
 # define YELLOW		"\033[0;33m"//sleep
 # define PURPLE		"\033[0;35m"//thinking
-# define BLUE		"\033[0;34m"
+# define BLUE		"\033[0;34m"//eating
 
 #endif
