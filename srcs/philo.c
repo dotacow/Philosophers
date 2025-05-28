@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:24:33 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 15:09:20 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 16:06:34 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ what I need to do:
 			if eat_goal && all philos are @satiated:	--> end_dinner.
 */
 
-
-
 int init_threads(t_table *table)
 {
 	int i;
@@ -58,14 +56,13 @@ int arrange_table(char **argv, t_table *table)
 {
 	if (!init_table(argv, table))
 		return (0);
-	gettimeofday(&table->start_t, NULL);
-	table->stop_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 	if (!init_philos(table))
 		{
 			free(table->forks);
 			free(table->seating_list);
 			return (0);
 		}
+	gettimeofday(&table->start_t, NULL);
 	if (!init_threads(table))
 		return (cleanup(table));
 	return (1);
@@ -79,7 +76,7 @@ int	main(int argc, char **argv)
 	{
 		if (arrange_table(argv, &table))
 				return (wait_dinner(&table));
-		return (-1);
+		return (0);
 	}
 	write(2, "usage: ./philo n_philo t_die t_eat t_sleep [n_min_eat_philo]\n",
 		61);

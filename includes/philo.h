@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:25:14 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 15:09:53 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 16:05:19 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@
 # include <sys/time.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdatomic.h>
 
 
 typedef struct s_philo	t_philo;
 
 typedef enum e_state
 {
-	eating,
 	hungry,
-	thinking,
-	sleeping,
 	satiated,
 	dead,
 }				t_state;
@@ -41,18 +39,24 @@ typedef struct s_clock
 	long	die_t;
 }				t_clock;
 
+/**
+	@feast_famine:
+		1: sim ongoing
+		0: sim ended/not started yet
+	@start_t:
+	 our local epoch
+*/
 typedef struct s_table
 {
 	/* ### SHARED RESOURCES: ### */
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
-	pthread_mutex_t	stop_lock;
 	/* ### WAITER ONLY WRITE ### */
 	t_clock			t_clock;
 	struct timeval	start_t;
 	int				eat_goal;
 	int				num_philos;
-	int				feast_famine;
+	_Atomic int		feast_famine;
 	t_philo			**seating_list;
 }				t_table;
 
@@ -60,7 +64,7 @@ typedef struct s_philo
 {
 	pthread_t		thread_id;
 	int				seat_id;
-	int				first_fork;;
+	int				first_fork;
 	int				second_fork;
 	t_state			state;
 	long			last_eat_t;
@@ -74,9 +78,8 @@ int			is_numeric(char **argv);
 int			free_split(void **ptr, int end);
 /* #### TIME & SYNC */
 void		ft_usleep(long time_in_ms, t_table *table);
-void		mtx_printf(t_table *table, const char *str, int seat_id);
+void		mtx_printf(t_table *table, const char *str, t_philo *philo);
 long		get_time(struct timeval start);
-int			is_stop(t_table *table);
 /* #### INIT #### */
 int			arrange_table(char **argv, t_table *table);
 int			init_philos(t_table *table);

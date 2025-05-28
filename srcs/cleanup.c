@@ -6,12 +6,11 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 19:22:14 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 15:12:01 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:26:27 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/philo.h"
-#include <pthread.h>
 
 
 void philo_cleanup(t_philo *philo)
@@ -60,7 +59,6 @@ int cleanup(t_table *table)
 			philo_cleanup(table->seating_list[i++]);
 	}
 	pthread_mutex_destroy(&table->print_lock);
-	pthread_mutex_destroy(&table->stop_lock);
 	free(table->forks);
 	free(table->seating_list);
 	free(table);
