@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:25:14 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 20:50:30 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 21:54:08 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ int			is_numeric(char **argv);
 int			free_split(void **ptr, int end);
 /* #### TIME & SYNC */
 void		ft_usleep(long time_in_ms, t_table *table);
-void		mtx_printf(t_table *table, const char *str, t_philo *philo);
+void		mtx_printf(t_table *table, char *str, t_philo *philo,
+	char *color);
 long		get_time(struct timeval start);
 /* #### INIT #### */
 int			arrange_table(char **argv, t_table *table);
@@ -99,8 +100,10 @@ int			init_threads(t_table *table);
 /* #### ROUTINE #### */
 int			wait_dinner(t_table *table);
 void		*philo_routine(void *arg);
+/* #### MONITOR #### */
+int			wait_dinner(t_table *table);
 /* #### EXIT #### */
-int		cleanup(t_table *table);
+int			cleanup(t_table *table);
 /* #### COLORS #### */
 # define RED		"\033[0;31m"//death
 # define GREEN		"\033[0;32m"//taken a fork

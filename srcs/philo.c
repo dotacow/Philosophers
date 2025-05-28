@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:24:33 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 20:52:20 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 21:52:08 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,9 @@ int arrange_table(char **argv, t_table *table)
 			return (0);
 		}
 	gettimeofday(&table->start_t, NULL);
-	table->feast_famine = 1;
 	if (!init_threads(table))
 		return (cleanup(table));
 	return (1);
-}
-
-int wait_dinner(t_table *table)
-{
 }
 
 int	main(int argc, char **argv)

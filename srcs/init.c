@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:37:49 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 20:50:24 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 21:58:40 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_janitor *init_janitor(t_table *table)
 	t_janitor *janitor;
 	int i;
 
-	i = -1;
 	janitor = malloc(sizeof(t_janitor));
 	if (!janitor)
 		return (NULL);
@@ -39,12 +38,15 @@ t_janitor *init_janitor(t_table *table)
 		free(janitor);
 		return (NULL);
 	}
-	memset(janitor->fork_indc, 1, sizeof(int) * table->num_philos);
+	i = 0;
+	while (i < table->num_philos)
+		janitor->fork_indc[i++] = 0;
 	janitor->print_lock_indc = 1;
-	while (++i < table->num_philos)
+	i = 0;
+	while (i < table->num_philos)
 	{
 		table->forks[i] = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
-		/* table->janitor->fork_indc[i] = i; */
+		janitor->fork_indc[i++] = 1;
 	}
 	return (janitor);
 }
@@ -68,7 +70,6 @@ int init_table(char **argv, t_table *table)
 		free(table->seating_list);
 		return (0);
 	}
-	table->feast_famine = 1;// CHANGE!
 	return (1);
 }
 

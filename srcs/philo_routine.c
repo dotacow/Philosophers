@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:48:03 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 20:50:29 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 22:00:40 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static void pick_up_forks(t_philo *philo)
 {
 	if (philo->table->janitor->fork_indc[philo->first_fork])
 		pthread_mutex_lock(&philo->table->forks[philo->first_fork]);
-	mtx_printf(philo->table, GREEN"has taken a fork", philo);
+	mtx_printf(philo->table,"has taken a fork", philo,GREEN);
 	if (philo->table->janitor->fork_indc[philo->second_fork])
 		pthread_mutex_lock(&philo->table->forks[philo->second_fork]);
-	mtx_printf(philo->table, GREEN"has taken a fork", philo);
-	mtx_printf(philo->table, BLUE"is eating", philo);
-	philo->last_eat_t = get_time(philo->table->start_t);
+	mtx_printf(philo->table, "has taken a fork", philo, GREEN);
+	mtx_printf(philo->table, "is eating", philo,BLUE);
 	ft_usleep(philo->table->t_clock.eat_t, philo->table);
+	philo->last_eat_t = get_time(philo->table->start_t);
 	pthread_mutex_unlock(&philo->table->forks[philo->first_fork]);
 	pthread_mutex_unlock(&philo->table->forks[philo->second_fork]);
 	philo->eat_count++;
@@ -39,19 +39,19 @@ void *philo_routine(void *arg)
 	philo->state = hungry;
 	while (!philo->table->feast_famine)
 		usleep(100);
-	philo->last_eat_t = get_time(philo->table->start_t);// may need to be moved
 	if (philo->seat_id % 2)
 		ft_usleep(3, philo->table);
 	while(philo->table->feast_famine)
 	{
+		philo->last_eat_t = get_time(philo->table->start_t);// may need to be moved
 		pick_up_forks(philo);
 		if (!philo->table->feast_famine)
 			return (NULL);
-		mtx_printf(philo->table, YELLOW"is sleeping", philo);
+		mtx_printf(philo->table, "is sleeping", philo,YELLOW);
 		ft_usleep(philo->table->t_clock.sleep_t, philo->table);
 		if (!philo->table->feast_famine)
 			return (NULL);
-		mtx_printf(philo->table, PURPLE"is thinking", philo);
+		mtx_printf(philo->table, "is thinking", philo,PURPLE);
 	}
 	return (NULL);
 }

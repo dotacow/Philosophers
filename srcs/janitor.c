@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 19:22:14 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 19:44:47 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 21:40:43 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int cleanup(t_table *table)
 		if (table->janitor->fork_indc[i])
 			pthread_mutex_destroy(&table->forks[i]);
 		if (table->seating_list[i])
-			philo_cleanup(table->seating_list[i++]);
+			philo_cleanup(table->seating_list[i]);
+		i++;
 	}
 	if (table->janitor->print_lock_indc)
 		pthread_mutex_destroy(&table->print_lock);
