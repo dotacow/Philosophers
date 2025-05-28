@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:37:49 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/22 15:50:34 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 13:25:40 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int init_table(char **argv, t_table *table)
 	table->eat_goal = -1;
 	table->feast_famine = 0;
 	table->num_philos = ft_atoi(argv[1]);
-	table->t_clock.die_t.tv_usec = ft_atoi(argv[2]);
-	table->t_clock.eat_t.tv_usec = ft_atoi(argv[3]);
-	table->t_clock.sleep_t.tv_usec = ft_atoi(argv[4]);
+	table->t_clock.die_t = ft_atoi(argv[2]);
+	table->t_clock.eat_t = ft_atoi(argv[3]);
+	table->t_clock.sleep_t = ft_atoi(argv[4]);
 	if (argv[5])
 		table->eat_goal = ft_atoi(argv[5]);
 	while (++i < table->num_philos)

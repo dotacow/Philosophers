@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:25:14 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/22 18:01:54 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:09:53 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ typedef enum e_state
 
 typedef struct s_clock
 {
-	struct timeval	start_t;
-	struct timeval	eat_t;
-	struct timeval	sleep_t;
-	struct timeval	think_t;
-	struct timeval	die_t;
+	long	eat_t;
+	long	sleep_t;
+	long	think_t;
+	long	die_t;
 }				t_clock;
 
 typedef struct s_table
@@ -47,8 +46,10 @@ typedef struct s_table
 	/* ### SHARED RESOURCES: ### */
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
+	pthread_mutex_t	stop_lock;
 	/* ### WAITER ONLY WRITE ### */
 	t_clock			t_clock;
+	struct timeval	start_t;
 	int				eat_goal;
 	int				num_philos;
 	int				feast_famine;
@@ -62,7 +63,7 @@ typedef struct s_philo
 	int				first_fork;;
 	int				second_fork;
 	t_state			state;
-	struct timeval	last_eat_t;
+	long			last_eat_t;
 	int				eat_count;
 	t_table			*table;
 }				t_philo;
@@ -71,6 +72,11 @@ typedef struct s_philo
 long int	ft_atoi(const char *nptr);
 int			is_numeric(char **argv);
 int			free_split(void **ptr, int end);
+/* #### TIME & SYNC */
+void		ft_usleep(long time_in_ms, t_table *table);
+void		mtx_printf(t_table *table, const char *str, int seat_id);
+long		get_time(struct timeval start);
+int			is_stop(t_table *table);
 /* #### INIT #### */
 int			arrange_table(char **argv, t_table *table);
 int			init_philos(t_table *table);

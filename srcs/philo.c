@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:24:33 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/22 18:10:26 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:09:20 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int arrange_table(char **argv, t_table *table)
 {
 	if (!init_table(argv, table))
 		return (0);
+	gettimeofday(&table->start_t, NULL);
+	table->stop_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 	if (!init_philos(table))
 		{
 			free(table->forks);
