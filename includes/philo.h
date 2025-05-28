@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:25:14 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 16:05:19 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/28 18:10:53 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ void		*philo_routine(void *arg);
 /* #### EXIT #### */
 int		cleanup(t_table *table);
 /* #### COLORS #### */
-# define RED		"\033[0;31m"
-# define GREEN		"\033[0;32m"
-# define YELLOW		"\033[0;33m"
+# define RED		"\033[0;31m"//death
+# define GREEN		"\033[0;32m"//taken a fork
+# define YELLOW		"\033[0;33m"//sleep
+# define PURPLE		"\033[0;35m"//thinking
 # define BLUE		"\033[0;34m"
-# define PURPLE		"\033[0;35m"
 
 #endif
