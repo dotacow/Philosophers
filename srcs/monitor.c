@@ -10,22 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/philo.h"
+#include "../includes/philo.h"
 
-static int is_dead(t_philo *philo)
+static int	is_dead(t_philo *philo)
 {
-	long current_time;
+	long	current_time;
 
 	current_time = get_time(philo->table->start_t);
-	 if (current_time - philo->last_eat_t > philo->table->t_clock.die_t)
-	 			return (1);
+	if (current_time - philo->last_eat_t > philo->table->t_clock.die_t)
+		return (1);
 	return (0);
 }
 
-int wait_dinner(t_table *table)
+int	wait_dinner(t_table *table)
 {
-	int i;
-	int full_c;
+	int	i;
+	int	full_c;
 
 	table->feast_famine = 1;
 	while (table->feast_famine)
@@ -37,14 +37,14 @@ int wait_dinner(t_table *table)
 		{
 			if (is_dead(table->seating_list[i]))
 			{
-				mtx_printf(table,"is dead", table->seating_list[i],RED);
+				mtx_printf(table, "is dead", table->seating_list[i], RED);
 				table->feast_famine = 0;
 				break ;
 			}
 			if (table->seating_list[i]->state == satiated)
 				full_c++;
 			if (table->eat_goal != -1 && full_c == table->num_philos)
-					table->feast_famine = 0;
+				table->feast_famine = 0;
 		}
 	}
 	usleep(3000);

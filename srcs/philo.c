@@ -12,16 +12,16 @@
 
 #include "../includes/philo.h"
 
-int arrange_table(char **argv, t_table *table)
+int	arrange_table(char **argv, t_table *table)
 {
 	if (!init_table(argv, table))
 		return (0);
 	if (!init_philos(table))
-		{
-			free(table->forks);
-			free(table->seating_list);
-			return (0);
-		}
+	{
+		free(table->forks);
+		free(table->seating_list);
+		return (0);
+	}
 	gettimeofday(&table->start_t, NULL);
 	if (!init_threads(table))
 		return (cleanup(table));

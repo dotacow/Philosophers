@@ -6,13 +6,13 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:37:49 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/29 20:31:50 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/29 20:54:47 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void table_init_helper(char **argv, t_table *table)
+static void	table_init_helper(char **argv, t_table *table)
 {
 	table->print_lock = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
 	table->eat_goal = -1;
@@ -24,10 +24,11 @@ static void table_init_helper(char **argv, t_table *table)
 	if (argv[5])
 		table->eat_goal = ft_atoi(argv[5]);
 }
-t_janitor *init_janitor(t_table *table)
+
+t_janitor	*init_janitor(t_table *table)
 {
-	t_janitor *janitor;
-	int i;
+	t_janitor	*janitor;
+	int			i;
 
 	janitor = malloc(sizeof(t_janitor));
 	if (!janitor)
@@ -52,7 +53,7 @@ t_janitor *init_janitor(t_table *table)
 	return (janitor);
 }
 
-int init_table(char **argv, t_table *table)
+int	init_table(char **argv, t_table *table)
 {
 	table->forks = malloc(sizeof(pthread_mutex_t) * ft_atoi(argv[1]));
 	if (!table->forks)
@@ -75,7 +76,7 @@ int init_table(char **argv, t_table *table)
 	return (1);
 }
 
-int init_philos(t_table *table)
+int	init_philos(t_table *table)
 {
 	int	i;
 
@@ -98,21 +99,21 @@ int init_philos(t_table *table)
 		table->seating_list[i]->state = hungry;
 		table->seating_list[i]->table = table;
 		table->seating_list[i]->thread_id = 0;
-		table->seating_list[i]->last_eat_t= 0;
+		table->seating_list[i]->last_eat_t = 0;
 	}
 	return (1);
 }
-int init_threads(t_table *table)
+
+int	init_threads(t_table *table)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < table->num_philos)
 	{
-		table->seating_list[i]->thread_id = (pthread_t)NULL;
+		table->seating_list[i]->thread_id = (pthread_t) NULL;
 		if (pthread_create(&table->seating_list[i]->thread_id, NULL,
-				(void *)philo_routine, (void *)table->seating_list[i])
-				!= 0)
+				(void *)philo_routine, (void *)table->seating_list[i]) != 0)
 			return (0);
 		i++;
 	}

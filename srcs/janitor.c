@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/philo.h"
+#include "../includes/philo.h"
 
-void philo_cleanup(t_philo *philo)
+void	philo_cleanup(t_philo *philo)
 {
 	if (philo)
 	{
@@ -23,7 +23,7 @@ void philo_cleanup(t_philo *philo)
 	philo = NULL;
 }
 
-int free_split(void **ptr, int end)
+int	free_split(void **ptr, int end)
 {
 	int	i;
 
@@ -42,7 +42,7 @@ int free_split(void **ptr, int end)
 	return (0);
 }
 
-int cleanup(t_table *table)
+int	cleanup(t_table *table)
 {
 	int	i;
 
