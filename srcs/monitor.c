@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 20:58:55 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/29 17:16:32 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/29 19:45:08 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int is_dead(t_philo *philo)
 	long current_time;
 
 	current_time = get_time(philo->table->start_t);
-	 if (current_time - philo->last_eat_t >= philo->table->t_clock.die_t)
+	 if (current_time - philo->last_eat_t > philo->table->t_clock.die_t)
 	 			return (1);
 	return (0);
 }
@@ -30,7 +30,7 @@ int wait_dinner(t_table *table)
 	table->feast_famine = 1;
 	while (table->feast_famine)
 	{
-		usleep(20);
+		usleep(100);
 		i = -1;
 		full_c = 0;
 		while (table->seating_list[++i])
