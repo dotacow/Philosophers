@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 20:58:55 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/29 17:06:28 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:16:32 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int wait_dinner(t_table *table)
 	table->feast_famine = 1;
 	while (table->feast_famine)
 	{
-		usleep(500);
+		usleep(20);
 		i = -1;
 		full_c = 0;
 		while (table->seating_list[++i])
