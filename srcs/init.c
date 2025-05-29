@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:37:49 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/29 17:03:07 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/29 20:31:50 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ t_janitor *init_janitor(t_table *table)
 	while (i < table->num_philos)
 	{
 		table->forks[i] = (pthread_mutex_t)PTHREAD_MUTEX_INITIALIZER;
-		janitor->fork_indc[i++] = 1;
+		janitor->fork_indc[i] = 1;
+		i++;
 	}
 	return (janitor);
 }

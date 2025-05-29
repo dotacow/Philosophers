@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:48:03 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/29 19:58:53 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/29 20:33:40 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void *philo_routine(void *arg)
 	if (philo->seat_id % 2)
 		ft_usleep(1, philo->table);
 	philo->last_eat_t = get_time(philo->table->start_t);
-	if(!philo->second_fork)
-		return NULL;
+	if (philo->table->num_philos == 1)
+		return (NULL);
 	while(philo->table->feast_famine)
 	{
 		if (philo->table->feast_famine)

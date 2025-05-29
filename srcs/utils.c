@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 14:57:12 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 14:34:42 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/29 20:09:42 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	check_int_overflow(const char *str)
 	if (len == 10)
 	{
 		num = ft_atoi(str);
-		if (num > 2147483647)
+		if (num > 2147483647 || num == 0)
 			return (0);
 	}
 	return (1);
@@ -71,7 +71,7 @@ static int	validate_argument(char *arg)
 {
 	int	j;
 
-	if (!arg[0])
+	if (!arg[0] || arg[0] == '0')
 		return (0);
 	j = 0;
 	while (arg[j])

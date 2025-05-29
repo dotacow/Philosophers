@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 19:22:14 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/29 16:24:23 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/29 20:35:01 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int cleanup(t_table *table)
 		if (table->seating_list[i])
 			philo_cleanup(table->seating_list[i]);
 	i = -1;
-	while (++i < table->num_philos)
+	while (++i < table->num_philos && table->num_philos != 1)
 		if (table->janitor->fork_indc[i])
 			pthread_mutex_destroy(&table->forks[i]);
 	if (table->janitor->print_lock_indc)
