@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 16:37:49 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 21:58:40 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:03:07 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int init_table(char **argv, t_table *table)
 	table->forks = malloc(sizeof(pthread_mutex_t) * ft_atoi(argv[1]));
 	if (!table->forks)
 		return (0);
-	table->seating_list = malloc(sizeof(t_philo *) * ft_atoi(argv[1]) + 1);
+	table->seating_list = malloc(sizeof(t_philo *) * (ft_atoi(argv[1]) + 1));
+	table->seating_list[ft_atoi((argv[1]))] = NULL;
 	if (!table->seating_list)
 	{
 		free(table->forks);
@@ -96,6 +97,7 @@ int init_philos(t_table *table)
 		table->seating_list[i]->state = hungry;
 		table->seating_list[i]->table = table;
 		table->seating_list[i]->thread_id = 0;
+		table->seating_list[i]->last_eat_t= 0;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:25:14 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/28 21:54:08 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/29 16:20:10 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,25 @@ typedef struct s_table
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_lock;
 	/* ### WAITER ONLY WRITE ### */
-	t_clock			t_clock;
 	struct timeval	start_t;
+	t_clock			t_clock;
 	t_philo			**seating_list;
 	t_janitor		*janitor;
 	int				eat_goal;
 	int				num_philos;
 	_Atomic int		feast_famine;
-
 }				t_table;
 
 typedef struct s_philo
 {
-	pthread_t		thread_id;
-	int				seat_id;
-	int				first_fork;
-	int				second_fork;
-	t_state			state;
-	long			last_eat_t;
-	int				eat_count;
-	t_table			*table;
+	t_table					*table;
+	pthread_t				thread_id;
+	_Atomic t_state			state;
+	_Atomic long			last_eat_t;
+	int						seat_id;
+	int						first_fork;
+	int						second_fork;
+	int						eat_count;
 }				t_philo;
 
 /**

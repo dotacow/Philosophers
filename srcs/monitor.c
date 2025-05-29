@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 20:58:55 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/29 10:46:32 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/29 17:06:28 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int wait_dinner(t_table *table)
 		usleep(500);
 		i = -1;
 		full_c = 0;
-		while (++i < table->num_philos)
+		while (table->seating_list[++i])
 		{
 			if (is_dead(table->seating_list[i]))
 			{
@@ -44,9 +44,9 @@ int wait_dinner(t_table *table)
 			if (table->seating_list[i]->state == satiated)
 				full_c++;
 			if (table->eat_goal != -1 && full_c == table->num_philos)
-				table->feast_famine = 0;
+					table->feast_famine = 0;
 		}
 	}
-	usleep(2000);
-	return (cleanup(table));
+	usleep(3000);
+	return (0);
 }
