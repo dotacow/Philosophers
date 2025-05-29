@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -I includes -pthread
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g -I includes -pthread
 
 SRC = philo.c janitor.c init.c philo_routine.c sync_utils.c utils.c monitor.c
 
@@ -15,7 +15,7 @@ ofiles/%.o: srcs/%.c includes/philo.h | $(ODIR)
 all: $(NAME)
 
 $(NAME): $(OFILES)
-	$(CC) $(OFILES) -L$(LIBDIR) -lft -o $(NAME)
+	$(CC) $(OFILES) -fsanitize=thread  -o $(NAME)
 
 clean:
 	rm -rf ofiles
