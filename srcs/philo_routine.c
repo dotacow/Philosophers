@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:48:03 by yokitane          #+#    #+#             */
-/*   Updated: 2025/05/30 12:12:04 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:34:02 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 static int	pick_up_forks(t_philo *philo)
 {
-	if (philo->table->janitor->fork_indc[philo->first_fork]
-		&& philo->table->feast_famine)
-		pthread_mutex_lock(&philo->table->forks[philo->first_fork]);
+	pthread_mutex_lock(&philo->table->forks[philo->first_fork]);
 	mtx_printf(philo->table, "has taken a fork", philo, GREEN);
 	if (!philo->table->feast_famine || philo->table->num_philos == 1)
 	{
@@ -47,8 +45,9 @@ void	*philo_routine(void *arg)
 	philo->state = hungry;
 	while (!philo->table->feast_famine)
 		usleep(50);
+	// philo->last_eat_t = get_time(philo->table->start_t);
 	if (philo->seat_id % 2)
-		ft_usleep(philo->table->t_clock.die_t / 2, philo->table);
+		ft_usleep(5, philo->table);
 	philo->last_eat_t = get_time(philo->table->start_t);
 	while (philo->table->feast_famine)
 	{
