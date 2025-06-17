@@ -6,7 +6,7 @@
 /*   By: yokitane <yokitane@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:48:03 by yokitane          #+#    #+#             */
-/*   Updated: 2025/06/15 17:40:10 by yokitane         ###   ########.fr       */
+/*   Updated: 2025/06/17 14:48:15 by yokitane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	*philo_routine(void *arg)
 	philo->state = hungry;
 	while (!philo->table->feast_famine)
 		usleep(50);
-	// philo->last_eat_t = get_time(philo->table->start_t);
 	if (philo->seat_id % 2)
 		ft_usleep(5, philo->table);
 	philo->last_eat_t = get_time(philo->table->start_t);

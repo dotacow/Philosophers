@@ -1,3 +1,0 @@
-TODO:
-	:special philo < 3 routine
-	:monitor rotuine
